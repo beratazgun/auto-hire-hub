@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        color: #555;
+      }
+
+      .code {
+        font-size: 24px;
+        font-weight: bold;
+        color: black;
+        background-color: #f4f4f4;
+        padding: 10px 20px;
+        width: fit-content;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('header/defaultHeader.ejs') %>
+      <p>Hello <%= firstName %>,</p>
+      <p>Your two-factor authentication code is:</p>
+      <p class="code"><%= otpCode %></p>
+      <p>
+        Please use this code to complete the authentication process. This code
+        will expire in a short period, so be sure to enter it promptly.
+      </p>
+      <p>
+        If you didn't request this code, please ignore this email or contact our
+        support team.
+      </p>
+      <%- include('footer/defaultFooter.ejs') %>
+    </div>
+  </body>
+</html>

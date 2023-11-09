@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+      }
+      h2 {
+        color: #333;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      strong {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('header/defaultHeader.ejs') %>
+      <h2>Rental Summary</h2>
+      <p>Hello <%= firstName %>,</p>
+      <p>Here is a summary of your car rental:</p>
+      <ul>
+        <li><strong>Car Brand:</strong> <%= brand %></li>
+        <li><strong>Car Model:</strong> <%= model %></li>
+        <li><strong>Plate Number:</strong> <%= plateNumber %></li>
+        <li><strong>Rental Duration:</strong> <%= totalDuration %> minute</li>
+        <li><strong>Total Price:</strong> <%= totalFee %> TL</li>
+      </ul>
+      <p>Enjoy your journey!</p>
+      <%- include('footer/defaultFooter.ejs') %>
+    </div>
+  </body>
+</html>

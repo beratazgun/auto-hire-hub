@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Renter {
+  id                String          @id @default(uuid())
+  renterCode        String          @unique
+  fullName          String          @db.VarChar(60)
+  firstName         String          @db.VarChar(30)
+  lastName          String          @db.VarChar(30)
+  email             String          @unique
+  phone             String          @unique
+  password          String
+  role              String          @default("renter")
+  isAccountActive   Boolean         @default(true)
+  isAccountApproved Boolean         @default(false)
+  isAccountBlocked  Boolean         @default(false)
+  isAccountDeleted  Boolean         @default(false)
+  is2FAEnabled      Boolean         @default(false)
+  accountApprovedAt DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  DriverLicance     DriverLicance[]
+  RentalStatus      RentalStatus[]
+}
+
+model CarOwner {
+  id                String    @id @default(uuid())
+  carOwnerCode      String    @unique
+  firstName         String    @db.VarChar(30)
+  lastName          String    @db.VarChar(30)
+  fullName          String    @db.VarChar(60)
+  email             String    @unique
+  phone             String    @unique
+  password          String
+  role              String    @default("carOwner")
+  isAccountActive   Boolean   @default(true)
+  isAccountApproved Boolean   @default(false)
+  isAccountBlocked  Boolean   @default(false)
+  isAccountDeleted  Boolean   @default(false)
+  is2FAEnabled      Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  accountApprovedAt DateTime?
+  deletedAt         DateTime?
+  Car               Car[]
+}
+
+model DriverLicance {
+  id                    String   @id @default(uuid())
+  firstName             String   @db.VarChar(30)
+  lastName              String   @db.VarChar(30)
+  bloodGroup            String   @db.VarChar(30)
+  driversLicanseDate    DateTime @db.Date
+  licenceValidityPeriod DateTime @db.Date
+  identityNumber        String   @db.VarChar(11)
+  bornDate              DateTime @db.Date
+  bornPlace             String   @db.VarChar(30)
+  frontSideImage        String   @db.VarChar(255)
+  backSideImage         String   @db.VarChar(255)
+  renterID              String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  Renter                Renter   @relation(fields: [renterID], references: [id], onDelete: Cascade)
+}
+
+model Car {
+  id           String         @id @default(uuid())
+  carCode      String         @unique
+  brand        String         @db.VarChar(30)
+  model        String         @db.VarChar(30)
+  modelDetail  String         @db.VarChar(60)
+  year         Int
+  plateNumber  String         @db.VarChar(30)
+  horsePower   Int
+  transmission String         @db.VarChar(30)
+  fuelLevel    Int
+  color        String
+  latitude     Float
+  longitude    Float
+  isRentable   Boolean        @default(true)
+  pricePerMin  Float
+  pricePerDay  Float
+  fuelPrice    Float          @default(0)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  carOwnerID   String
+  isPublish    Boolean        @default(true)
+  isDeleted    Boolean        @default(false)
+  deletedAt    DateTime?
+  CarOwner     CarOwner       @relation(fields: [carOwnerID], references: [id])
+  CarImages    CarImages[]
+  RentalStatus RentalStatus[]
+}
+
+model CarImages {
+  id        String    @id @default(uuid())
+  carID     String
+  image     String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  Car       Car       @relation(fields: [carID], references: [id], onDelete: Cascade)
+}
+
+model RentalStatus {
+  id               String    @id @default(uuid())
+  rentalCode       String
+  renterID         String
+  carID            String
+  startingDate     DateTime  @default(now())
+  endingDate       DateTime?
+  paymentStatus    String?   @default("pending")
+  totalFee         Float?    @default(0)
+  rentStatus       String?   @default("continued")
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime  @updatedAt
+  isImagesUploaded Boolean   @default(false)
+  Renter           Renter    @relation(fields: [renterID], references: [id])
+  Car              Car       @relation(fields: [carID], references: [id])
+}

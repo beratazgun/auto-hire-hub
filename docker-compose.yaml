@@ -1,0 +1,49 @@
+version: '3'
+services:
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis/redis-data:/data
+    env_file:
+      - .env
+
+  mongodb:
+    image: 'mongo:latest'
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/mongodb
+    env_file:
+      - .env
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./data/postgres/postgres-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  server:
+    container_name: server
+    restart: unless-stopped
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
