@@ -22,6 +22,10 @@ import { IsRenterAuthorizationGuard } from '@src/core/guards/IsRenterAuthorizati
 export class DriverLicanceController {
   constructor(private readonly driverLicanceService: DriverLicanceService) {}
 
+  /**
+   *
+   * @method CreateDriverLicance
+   */
   @Post('/create')
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -75,6 +79,9 @@ export class DriverLicanceController {
     return this.driverLicanceService.createDriverLicance(files, req, res, next);
   }
 
+  /**
+   * @method GetDriverLicance
+   */
   @Get('/me/get')
   @UseGuards(AuthGuard, IsRenterAuthorizationGuard)
   @ApiOperation({

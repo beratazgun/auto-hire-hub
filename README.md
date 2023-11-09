@@ -49,6 +49,10 @@ $ docker-compose down
 
 # build
 $ docker-compose up --build
+
+# after build you should run migrations
+# You should download netcat for your operating system
+$ bash prismaMigrate.sh
 ```
 
 ## Running the app on local

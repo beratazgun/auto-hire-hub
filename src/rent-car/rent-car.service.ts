@@ -23,6 +23,14 @@ import { RentalStatusInterface } from '@src/core/interfaces/email-interfaces/Ren
 export class RentCarService {
   constructor(private prismaService: PrismaService) {}
 
+  /**
+   * @param rentType
+   * @param carCode
+   * @param req
+   * @param res
+   * @param next
+   * @description Renter can rent car with this method
+   */
   async rentCar(
     rentType: string,
     carCode: string,
@@ -88,6 +96,14 @@ export class RentCarService {
     );
   }
 
+  /**
+   * @param body
+   * @param rentalCode
+   * @param req
+   * @param res
+   * @param next
+   * @description Renter can terminate rent with this method. Before this endpoint, renter should upload car's images.
+   */
   async terminateRent(
     body: TerminateBodyDto,
     rentalCode: string,
@@ -200,6 +216,13 @@ export class RentCarService {
     );
   }
 
+  /**
+   * @param files
+   * @param rentalCode
+   * @param res
+   * @param next
+   * @description Renter can upload car's images with this method.
+   */
   async uploadCarImage(
     files: CarImageMulterFileInterface,
     rentalCode: string,
