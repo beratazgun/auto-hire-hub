@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is clone project. I don't recommend to use this project in production. This project is made for learning purposes only.
 
 ## Installation
 
@@ -32,7 +32,28 @@
 $ npm install
 ```
 
-## Running the app
+You should fill the .env file with your own credentials. You can find the .env.example file in the root directory.
+
+## Running the app on Docker
+
+1. Install Docker for your operating system.
+2. Install the [Docker](https://www.docker.com/).
+3. Run docker-compose
+
+```bash
+# start docker
+$ docker-compose up
+
+# stop docker
+$ docker-compose down
+
+# build
+$ docker-compose up --build
+```
+
+## Running the app on local
+
+Before start you should start mongodb, postgres and redis on your local machine.
 
 ```bash
 # development
@@ -45,29 +66,6 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Swagger
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+You can find the swagger documentation on http://localhost:3000/api
