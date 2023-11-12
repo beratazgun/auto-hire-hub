@@ -12,9 +12,12 @@ import { HttpExceptionFilter } from '@src/core/filters/HttpException.filter';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { LoggerService } from './logger/logger.service';
 import { ConfigService } from '@nestjs/config';
+import { winstonConfigration } from './core/libs/winstonConfigration';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: winstonConfigration,
+  });
   const configService = app.get(ConfigService);
 
   app.useGlobalPipes(
